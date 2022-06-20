@@ -11,9 +11,10 @@ current_dir = os.getcwd()
 repo_dir = os.path.join(current_dir, 'repo')
 server_dir = os.path.join(current_dir, server_folder_name)
 
-version_check_cmd = "git rev-list --left-right --count origin/master"
+fetch_cmd = "git fetch"
+version_check_cmd = "git rev-list --left-right --count origin/master..."
 repo_clone_cmd = "git clone https://github.com/Prowler1000/expensetracker -b master ./repo"
-repo_pull_cmd = "git pull https://github.com/Prowler1000/expensetracker"
+repo_pull_cmd = "git pull origin master -f"
 install_node_modules_cmd = "npm ci"
 node_build_cmd = "npm run build"
 
@@ -40,8 +41,9 @@ def run_cmd(cmd, workingdir):
 def check_for_updates():
     update_required = not Path(repo_dir).exists()
     if not update_required:
+        run_cmd(fetch_cmd, repo_dir)
         result = run_cmd(version_check_cmd, repo_dir)
-        update_required = all(not x.isdigit() or x == "0" for x in result)
+        update_required = not all(not x.isdigit() or x == "0" for x in result)
     return update_required
 
 

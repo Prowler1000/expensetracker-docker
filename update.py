@@ -50,7 +50,7 @@ def do_update():
     if not Path(repo_dir).exists():
         run_cmd(repo_clone_cmd, current_dir)
     else:
-        run_cmd(repo_pull_cmd, cwd=repo_dir)
+        run_cmd(repo_pull_cmd, repo_dir)
     run_cmd(install_node_modules_cmd, repo_dir)
     run_cmd(node_build_cmd, repo_dir)
     copy_files()
@@ -59,8 +59,7 @@ def do_update():
 def copy_files():
     if Path(server_dir).exists():
         shutil.rmtree(server_dir)
-    else:
-        os.mkdir(server_dir)
+    os.mkdir(server_dir)
     shutil.copy(nextjsconfig_src, nextjsconfig_dst)
     shutil.copy(packagejson_src, packagejson_dst)
     copy_tree(nextstatic_src, nextstatic_dst)

@@ -41,7 +41,7 @@ def check_for_updates():
     update_required = not Path(repo_dir).exists()
     if not update_required:
         result = run_cmd(version_check_cmd, repo_dir)
-        update_required = not all(not x.isdigit() or x == "0" for x in result)
+        update_required = all(not x.isdigit() or x == "0" for x in result)
     return update_required
 
 

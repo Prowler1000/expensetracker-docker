@@ -1,3 +1,4 @@
 #!/bin/sh
-python update.py
-node server.js
+server_dir="server"
+python update.py "$server_dir"
+node "$server_dir/server.js"

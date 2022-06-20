@@ -6,7 +6,6 @@ from pathlib import Path
 from distutils.dir_util import copy_tree
 
 server_folder_name = sys.argv[1]
-print(server_folder_name)
 
 current_dir = os.getcwd()
 repo_dir = os.path.join(current_dir, 'repo')
